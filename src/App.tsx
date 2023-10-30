@@ -11,8 +11,6 @@ import ChannelService from './Services/ChannelService'
 const YOUTUBE_PLAYLIST_ITEMS_API = "https://www.googleapis.com/youtube/v3/playlistItems"
 const YOUTUBE_CHANNELS_API = "https://youtube.googleapis.com/youtube/v3/channels"
 
-// const YOUTUBE_API_KEY = "***REMOVED***"
-
 function App() {
   const [handle, setHandle] = useState("")
   const [channelID, setChannelID] = useState("")
