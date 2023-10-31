@@ -1,9 +1,15 @@
 import express from 'express'
+import mongoose from 'mongoose'
+
 export const app = express()
+
+// Connect to DB
+await mongoose.connect("mongodb://127.0.0.1:27017/immersion");
 
 // Dev Test Data
 import data from "../dummyData.json"
-import { Channel } from '../types/Channel'
+import { IChannel } from '../types/Channel'
+import Channel from '../models/Channel';
 
 // Production
 if (!process.env['VITE']) {
@@ -15,35 +21,43 @@ if (!process.env['VITE']) {
     app.listen(process.env['PORT'])
 }
 
-app.get('/channel/:id', async (req, res) => {
-    /*  Step 1: Check if channel exists in DB, if exists fetch from DB
-        Step 2: If Channel does not exist in DB, fetch from Youtube search API
-    */
-    const channel: Channel = {
-        channelId: req.params.id,
-        title: "comdot"
+app.get("/api/channels", async (_, res) => {
+    try {
+        const channels = await Channel.find();
+        res.json(channels);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Server Error");
     }
+});
 
-    const YOUTUBE_SEARCH_API = "https://youtube.googleapis.com/youtube/v3/search"
-
-
-    let searchURL = `${YOUTUBE_SEARCH_API}?part=snippet&part=id`
-    searchURL += "&type=channel"
-    searchURL += "&q=comdot" // CHANGE TO DYNAMIC QUERY
-    searchURL += `&key=${import.meta.env.VITE_YOUTUBE_API_KEY}`
-
-    console.log(searchURL)
-
-    const youtubeAPIRes = await fetch(searchURL)
-    const data = await youtubeAPIRes.json()
-
-    console.log(data)
-
-    res.json(data)
-    // res.json(channel)
+app.post('/api/channels', async (req, res) => {
+    try {
+        const channel = new Channel({
+            channelId: req.body.channelId,
+            title: req.body.title
+        })
+        await channel.save()
+        res.send(channel) // TODO: change to res.json(...)???
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Server Error");
+    }
 })
 
-app.get('/channel/:id/videos', (req, res) => {
+app.get('/api/channels/:channelId', async (req, res) => {
+    try {
+        const channelId = req.params.channelId
+        const channel = await Channel.findOne({ channelId: channelId }).exec();
+        res.json(channel);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Server Error");
+    }
+})
+
+app.get('/api/channels/:channelId/videos', (req, res) => {
     // const channelId = req.params.id
     res.json(data)
 })
+

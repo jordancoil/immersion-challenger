@@ -4,8 +4,8 @@ import './App.css'
 import VideoService from './Services/VideoService'
 import VideoView from './Components/Video'
 import { Link, Outlet } from 'react-router-dom'
-import { Video } from './types/Video'
-import { Channel } from './types/Channel'
+import { IVideo } from './types/Video'
+import { IChannel } from './types/Channel'
 import ChannelService from './Services/ChannelService'
 
 const YOUTUBE_PLAYLIST_ITEMS_API = "https://www.googleapis.com/youtube/v3/playlistItems"
@@ -14,7 +14,7 @@ const YOUTUBE_CHANNELS_API = "https://youtube.googleapis.com/youtube/v3/channels
 function App() {
   const [handle, setHandle] = useState("")
   const [channelID, setChannelID] = useState("")
-  const [videos, setvideos] = useState<Video[]>([])
+  const [videos, setvideos] = useState<IVideo[]>([])
 
   const [hello, setHello] = useState("")
 
@@ -67,9 +67,9 @@ function App() {
       }
     }
 
-    fetchChannel()
+    // fetchChannel()
 
-    const channel: Channel = { channelId: "UCRxPrFmRHsXGWfAyE6oqrPQ", title: "test"}
+    const channel: IChannel = { channelId: "UCRxPrFmRHsXGWfAyE6oqrPQ", title: "test"}
     const videoService = new VideoService(channel)
     const fetchVideos = async () => {
       try {

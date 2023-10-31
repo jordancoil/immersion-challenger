@@ -1,22 +1,22 @@
 import Client, { FetchClient } from "../Clients/FetchClient";
-import { Channel } from "../types/Channel";
+import { IChannel } from "../types/Channel";
 
 import data from "../dummyData.json"
-import { Video } from "../types/Video";
+import { IVideo } from "../types/Video";
 
 export default class VideoService {
     client: FetchClient;
-    channel: Channel;
+    channel: IChannel;
 
-    constructor(channel: Channel) {
+    constructor(channel: IChannel) {
         this.client = Client
         this.channel = channel
     }
 
     async getVideos() {
         // const videos: Video[] = data
-        return this.client.get(`/channel/${this.channel.channelId}/videos`)
-            .then((data: Video[]) => {
+        return this.client.get(`/api/channels/${this.channel.channelId}/videos`)
+            .then((data: IVideo[]) => {
                 return data
             })
     }
