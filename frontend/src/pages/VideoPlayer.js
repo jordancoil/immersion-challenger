@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { Link, useLocation, useParams } from "react-router-dom"
-import VideoService, { Channel, Video } from "../services/VideoService"
+// import VideoService, { Channel, Video } from "../services/VideoService"
 // import FetchClient from "../clients/FetchClient"
 
 export default function VideoPlayer() {
@@ -14,7 +14,7 @@ export default function VideoPlayer() {
 
     const [playerSize, setPlayerSize] = useState({ width: 640, height: 360})
 
-    const [video, setVideo] = useState<Video>()
+    const [video, setVideo] = useState({})
 
     // useEffect(() => {
     //     // DUMMY TEST FUNCTION
@@ -34,7 +34,7 @@ export default function VideoPlayer() {
     //     fetchVideo()
     //   }, [])
 
-    function changePlayerSize(width: number, height: number) {
+    function changePlayerSize(width, height) {
         setPlayerSize({width: width, height: height})
     }
 

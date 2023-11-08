@@ -1,13 +1,16 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import ChannelService from "../services/ChannelService"
 
 export default function Home() {
     const [channels, setChannels] = useState([])
 
     useEffect(() => {
+        console.log("asdf")
         const channelService = new ChannelService()
         const fetchChannels = async () => {
           try {
             const channels = await channelService.getChannels()
+            console.log(channels)
             setChannels(channels)
           } catch (err) {
             console.log(err)
@@ -17,7 +20,7 @@ export default function Home() {
         fetchChannels()
       }, [])
 
-    const channelElems = channels.map(channel => {
+    const channelElems = channels?.map(channel => {
         return (
             <div>Channel!</div>
         )
@@ -25,7 +28,7 @@ export default function Home() {
 
     return (
         <div className="home">
-            <h2>Home</h2>
+            <h2>Home???</h2>
             <p>Select a channel</p>
             { channelElems }
         </div>
