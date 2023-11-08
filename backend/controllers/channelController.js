@@ -5,13 +5,15 @@ const channelQueries = require("../db/queries/channelQueries")
 
 // TODO add input validation
 
-// get aLL channels
+// get all channels
 const getChannels = async (req, res) => {
     channelQueries.getChannels().then((result) => {
         res.status(200).json(result.rows)
     }).catch((error) => {
-        // TODO add error code handling
-        res.status(500).json(error.message)
+        // TODO add different handling of various error codes
+        res.status(500).json({
+            message: error.message || "An error occurred while retrieving Channels."
+        })
     })
 }
 
@@ -22,8 +24,10 @@ const getChannel = async (req, res) => {
     channelQueries.getChannelById(id).then((result) => {
         res.status(200).json(result.rows[0])
     }).catch((error) => {
-        // TODO add error code handling
-        res.status(500).json(error.message)
+        // TODO add different handling of various error codes
+        res.status(500).json({
+            message: error.message || "An error occurred while retrieving the Channel."
+        })
     })
 }
 
@@ -31,11 +35,27 @@ const getChannel = async (req, res) => {
 const createChannel = async (req, res) => {
     const { channelId, title, thumbnail } = req.body
 
+    if (!channelId) {
+        res.status(400).send({
+            message: "Channel ID cannot be empty!"
+        });
+        return;
+    }
+
+    if (!title) {
+        res.status(400).send({
+            message: "Title cannot be empty!"
+        });
+        return;
+    }
+
     channelQueries.createChannel(channelId, title, thumbnail).then((result) => {
         res.status(200).json(result.rows[0])
     }).catch((error) => {
-        // TODO add error code handling
-        res.status(500).json(error.message)
+        // TODO add different handling of various error codes
+        res.status(500).json({
+            message: error.message || "An error occurred while creating the Channel."
+        })
     })
 }
 
@@ -46,8 +66,10 @@ const deleteChannel = async (req, res) => {
     channelQueries.deleteChannel(id).then((result) => {
         res.status(200).json(result.rows[0])
     }).catch((error) => {
-        // TODO add error code handling
-        res.status(500).json(error.message)
+        // TODO add different handling of various error codes
+        res.status(500).json({
+            message: error.message || "An error occurred while deleting the Channel."
+        })
     })
 }
 
@@ -59,8 +81,10 @@ const updateChannel = async (req, res) => {
     channelQueries.updateChannel(id, channelId, title, thumbnail).then((result) => {
         res.status(200).json(result.rows[0])
     }).catch((error) => {
-        // TODO add error code handling
-        res.status(500).json(error.message)
+        // TODO add different handling of various error codes
+        res.status(500).json({
+            message: error.message || "An error occurred while updating the Channel."
+        })
     })
 }
 
