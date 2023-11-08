@@ -5,14 +5,13 @@ export default function Home() {
     const [channels, setChannels] = useState([])
 
     useEffect(() => {
-        console.log("asdf")
         const channelService = new ChannelService()
         const fetchChannels = async () => {
           try {
             const channels = await channelService.getChannels()
-            console.log(channels)
             setChannels(channels)
           } catch (err) {
+            // TODO better handling of errors
             console.log(err)
           }
         }
@@ -22,13 +21,16 @@ export default function Home() {
 
     const channelElems = channels?.map(channel => {
         return (
-            <div>Channel!</div>
+            <div key={channel.id}>
+              <img src={channel.thumbnail} alt="channel thumnail" />
+              <h2>{channel.title}</h2>
+            </div>
         )
     })
 
     return (
         <div className="home">
-            <h2>Home???</h2>
+            <h2>Home</h2>
             <p>Select a channel</p>
             { channelElems }
         </div>

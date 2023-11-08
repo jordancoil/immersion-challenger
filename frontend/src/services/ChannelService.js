@@ -36,7 +36,7 @@ export default class ChannelService {
         try {
             return await FetchClient.get("/api/channels")
         } catch (error) {
-            
+            // TODO
         }
     }
 }
