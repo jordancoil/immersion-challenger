@@ -4,7 +4,7 @@ import { Link, useLocation, useParams } from "react-router-dom"
 // import FetchClient from "../clients/FetchClient"
 
 export default function VideoPlayer() {
-    const { channelId, videoId } = useParams()
+    const { channel_id, videoId } = useParams()
 
     
 
@@ -18,7 +18,7 @@ export default function VideoPlayer() {
 
     // useEffect(() => {
     //     // DUMMY TEST FUNCTION
-    //     const channel: Channel = { channelId: "UCRxPrFmRHsXGWfAyE6oqrPQ", title: "test"}
+    //     const channel: Channel = { channel_id: "UCRxPrFmRHsXGWfAyE6oqrPQ", title: "test"}
     //     const videoService = new VideoService(FetchClient, channel)
     //     const fetchVideo = async () => {
     //       try {
@@ -47,7 +47,7 @@ export default function VideoPlayer() {
                     <div className="video-container">
 
                         {video.prevVideo != "" ? 
-                            <Link to={`/channel/${channelId}/video/${video.prevVideo}`}>
+                            <Link to={`/channel/${channel_id}/video/${video.prevVideo}`}>
                                 <button>Prev</button>
                             </Link> : 
                             <button className="inactive">Prev</button>}
@@ -63,7 +63,7 @@ export default function VideoPlayer() {
                             allowFullScreen></iframe>
 
                         {video.nextVideo != "" ? 
-                            <Link to={`/channel/${channelId}/video/${video.nextVideo}`}>
+                            <Link to={`/channel/${channel_id}/video/${video.nextVideo}`}>
                                 <button>Next</button>
                             </Link> : 
                             <button className="inactive">Next</button>}

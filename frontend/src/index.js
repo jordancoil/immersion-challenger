@@ -13,13 +13,13 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
   // {
-  //   path: "/channel/:channelId",
+  //   path: "/channel/:channel_id",
   //   element: <Channel />,
   // },
-  {
-    path: "/channel/:channelId/video/:videoId",
-    element: <VideoPlayer />,
-  },
+  // {
+  //   path: "/channel/:channel_id/video/:videoId",
+  //   element: <VideoPlayer />,
+  // },
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

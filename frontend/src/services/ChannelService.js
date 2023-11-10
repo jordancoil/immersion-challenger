@@ -1,9 +1,9 @@
 import FetchClient from "../clients/FetchClient";
 
 export default class ChannelService {
-    async getChannel(channelId) {
+    async getChannel(yt_channel_id) {
         try {
-            return await FetchClient.get(`/api/channels/${channelId}`)
+            return await FetchClient.get(`/api/channels/${yt_channel_id}`)
 
             // if (!response) {
             //     // ALL OF THIS SHOULD MOVE TO THE BACKEND
@@ -20,7 +20,7 @@ export default class ChannelService {
             //     const channelResult = youtubeAPIRes.items[0] // TODO ensure exists
 
             //     const channel = await FetchClient.post(`/api/channels/`, {
-            //         channelId: channelResult.snippet.channelId,
+            //         channel_id: channelResult.snippet.channel_id,
             //         title: channelResult.snippet.channelTitle,
             //         thumbnail: channelResult.snippet.thumbnails.high,
             //     })

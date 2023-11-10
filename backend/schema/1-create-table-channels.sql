@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS channels;
+DROP TABLE IF EXISTS channels CASCADE;
 CREATE TABLE channels (
     id SERIAL PRIMARY KEY, 
     yt_channel_id varchar(100), 

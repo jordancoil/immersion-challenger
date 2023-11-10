@@ -19,13 +19,13 @@ const getChannelById = async (id) => {
     return pool.query(query).then(result => result);
 }
 
-const createChannel = async (channelId, title, thumbnail) => {
+const createChannel = async (yt_channel_id, title, thumbnail) => {
     const query = {
         name: "create-channel",
-        text: `INSERT INTO channels (channelId, title, thumbnail)
+        text: `INSERT INTO channels (yt_channel_id, title, thumbnail)
             VALUES ($1::text, $2::text, $3::text)
             RETURNING *;`,
-        values: [channelId, title, thumbnail]
+        values: [yt_channel_id, title, thumbnail]
     }
 
     return pool.query(query).then(result => result);
@@ -42,14 +42,14 @@ const deleteChannel = async (id) => {
     return pool.query(query).then(result => result);
 }
 
-const updateChannel = async (id, channelId, title, thumbnail) => {
+const updateChannel = async (id, yt_channel_id, title, thumbnail) => {
     const query = {
         name: "updateーchannel",
         text: `UPDATE channels
-            SET channelId = $2::text, title = $3::text, thumbnail = $4::text
+            SET yt_channel_id = $2::text, title = $3::text, thumbnail = $4::text
             WHERE id = $1::int
             RETURNING *;`,
-        values: [id, channelId, title, thumbnail]
+        values: [id, yt_channel_id, title, thumbnail]
     }
 
     return pool.query(query).then(result => result);

@@ -33,9 +33,9 @@ const getChannel = async (req, res) => {
 
 // create a new channel
 const createChannel = async (req, res) => {
-    const { channelId, title, thumbnail } = req.body
+    const { yt_channel_id, title, thumbnail } = req.body
 
-    if (!channelId) {
+    if (!yt_channel_id) {
         res.status(400).send({
             message: "Channel ID cannot be empty!"
         });
@@ -49,7 +49,7 @@ const createChannel = async (req, res) => {
         return;
     }
 
-    channelQueries.createChannel(channelId, title, thumbnail).then((result) => {
+    channelQueries.createChannel(yt_channel_id, title, thumbnail).then((result) => {
         res.status(200).json(result.rows[0])
     }).catch((error) => {
         // TODO add different handling of various error codes
@@ -76,9 +76,9 @@ const deleteChannel = async (req, res) => {
 // update a channel
 const updateChannel = async (req, res) => {
     const { id } = req.params
-    const { channelId, title, thumbnail } = req.body
+    const { yt_channel_id, title, thumbnail } = req.body
 
-    channelQueries.updateChannel(id, channelId, title, thumbnail).then((result) => {
+    channelQueries.updateChannel(id, yt_channel_id, title, thumbnail).then((result) => {
         res.status(200).json(result.rows[0])
     }).catch((error) => {
         // TODO add different handling of various error codes
