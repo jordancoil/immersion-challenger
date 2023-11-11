@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import ChannelService from "../services/ChannelService"
+import { Link } from "react-router-dom"
 
 export default function Home() {
     const [channels, setChannels] = useState([])
@@ -22,8 +23,10 @@ export default function Home() {
     const channelElems = channels?.map(channel => {
         return (
             <div key={channel.id}>
-              <img src={channel.thumbnail} alt="channel thumnail" />
-              <h2>{channel.title}</h2>
+              <Link to={`/channel/${channel.id}`}>
+                <img src={channel.thumbnail} alt="channel thumnail" />
+                <h2>{channel.title}</h2>
+              </Link>
             </div>
         )
     })

@@ -1,30 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import Error from './pages/Error';
-import VideoPlayer from './pages/VideoPlayer';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Error from "./pages/Error";
+import Home from "./pages/Home";
+import ChannelPage from "./pages/ChannelPage";
+import Navbar from "./components/Navbar";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/", 
     element: <App />,
-    errorElement: <Error />,
-  },
-  // {
-  //   path: "/channel/:channel_id",
-  //   element: <Channel />,
-  // },
-  // {
-  //   path: "/channel/:channel_id/video/:videoId",
-  //   element: <VideoPlayer />,
-  // },
+    children:[
+      {
+        path: "/", 
+        element: <Home />
+      },
+      {
+        path: "/channel/:id",
+        element: <ChannelPage />
+      },
+    ]
+  }
 ])
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <div className="bg-gray-800 text-white font-sans leading-normal tracking-normal mt-12">
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
+  </div>
 );

@@ -1,14 +1,11 @@
-// PAGES AND COMPONENTS
-import Home from "./pages/Home"
 import Navbar from "./components/Navbar";
+import { Outlet } from "react-router-dom";
 
 export default function App() {
   return (
     <div className="App">
       <Navbar />
-      <div className="pages">
-        <Home />
-      </div>
+      <Outlet />
     </div>
   )
 }

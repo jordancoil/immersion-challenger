@@ -1,9 +1,9 @@
 import FetchClient from "../clients/FetchClient";
 
 export default class ChannelService {
-    async getChannel(yt_channel_id) {
+    async getChannel(id) {
         try {
-            return await FetchClient.get(`/api/channels/${yt_channel_id}`)
+            return await FetchClient.get(`/api/channels/${id}`)
 
             // if (!response) {
             //     // ALL OF THIS SHOULD MOVE TO THE BACKEND
