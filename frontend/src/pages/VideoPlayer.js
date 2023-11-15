@@ -1,38 +1,12 @@
-import { useState, useEffect } from "react"
-import { Link, useLocation, useParams } from "react-router-dom"
-// import VideoService, { Channel, Video } from "../services/VideoService"
-// import FetchClient from "../clients/FetchClient"
+import { useState } from "react"
+import { Link, useParams } from "react-router-dom"
 
 export default function VideoPlayer() {
     const { channel_id, videoId } = useParams()
 
-    
-
-    // TODO get video from DB
-    // so we can populate the prev and next buttons
-    // and so the progress number, eg. 10/145
-
     const [playerSize, setPlayerSize] = useState({ width: 640, height: 360})
 
     const [video, setVideo] = useState({})
-
-    // useEffect(() => {
-    //     // DUMMY TEST FUNCTION
-    //     const channel: Channel = { channel_id: "UCRxPrFmRHsXGWfAyE6oqrPQ", title: "test"}
-    //     const videoService = new VideoService(FetchClient, channel)
-    //     const fetchVideo = async () => {
-    //       try {
-    //         const video = await videoService.getVideo(videoId!)
-    //         setVideo(video!)
-    //       } catch (err) {
-    //         console.log(err)
-    //       }
-    //     }
-
-    //     console.log("running use effect")
-    
-    //     fetchVideo()
-    //   }, [])
 
     function changePlayerSize(width, height) {
         setPlayerSize({width: width, height: height})

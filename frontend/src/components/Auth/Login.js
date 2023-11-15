@@ -2,18 +2,19 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
 import { HOME_PATH } from "../../routes";
+import LoginService from "../../services/LoginService";
 
 // TODO move to login service
-async function loginUser(credentials) {
-    return fetch('http://localhost:4000/api/auth/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    })
-    .then(data => data.json())
-}
+// async function loginUser(credentials) {
+//     return fetch('http://localhost:4000/api/auth/login', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(credentials)
+//     })
+//     .then(data => data.json())
+// }
 
 export default function Login() {
     const { updateToken } = useAuth()
@@ -26,7 +27,7 @@ export default function Login() {
         e.preventDefault()
         // TODO hash password
         // maybe do this in login service once created
-        const token = await loginUser({
+        const token = await LoginService.loginUser({
             username: username,
             password: password
         })

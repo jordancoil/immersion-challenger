@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 const AuthContext = createContext()
 
 const AuthProvider = ({ children }) => {
+    // TODO update to more secure storage
     const [token, setToken] = useState(localStorage.getItem("token"))
 
     const updateToken = (newToken) => {
