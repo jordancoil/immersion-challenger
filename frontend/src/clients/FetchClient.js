@@ -2,6 +2,8 @@
 const API_HOST = "localhost"
 const API_PORT = "4000"
 
+// TODO replace fetch with axios
+
 const FetchClient = {
     async get(path) {
         return await fetch(`http://${API_HOST}:${API_PORT}${path}`)

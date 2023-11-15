@@ -1,24 +1,48 @@
-const { NavLink } = require("react-router-dom")
+import userPortrait from "../assets/images/user_portrait.png"
+import { useAuth } from "../providers/AuthProvider"
+import { LOGIN_PATH, LOGOUT_PATH, PROFILE_PATH } from "../routes"
+
+const { Link } = require("react-router-dom")
 
 export default function Navbar() {
+    const { token } = useAuth()
+
     return (
         <header>
-            <nav aria-label="menu nav" class="bg-gray-800 border-b-2 border-slate-500 pt-2 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
-                <div class="flex flex-wrap items-center justify-between">
+            <nav aria-label="menu nav" className="bg-gray-800 border-b-2 border-slate-500 pt-2 pb-1 px-1 mt-0 h-auto w-full">
+                <div className="flex flex-wrap items-center justify-between">
                     <div>
-                        <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
-                            <li class="flex-1 flex-none mr-3 inline-block py-2 px-4 text-white no-underline">
-                                <NavLink to="/" activeClassName="">
+                        <ul className="list-reset flex justify-between flex-1 md:flex-none items-center">
+                            <li className="flex-1 flex-none mr-3 inline-block py-2 px-4 text-white no-underline">
+                                <Link to="/">
                                     Home
-                                </NavLink>
+                                </Link>
                             </li>
-                            {/* <li class="flex-1 md:flex-none md:mr-3">
-                                <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">link</a>
-                            </li> */}
                         </ul>
                     </div>
                     <div>
-                        <p>user section</p>
+                        {token ?
+                            <ul className="list-reset flex justify-between flex-1 md:flex-none items-center">
+                                <Link to={LOGOUT_PATH}>
+                                    <li className="flex-1 flex-none mr-3 inline-block py-2 px-4 text-white no-underline">
+                                        Logout
+                                    </li>
+                                </Link>
+                                <Link to={PROFILE_PATH}>
+                                    <li className="flex-1 flex-none mr-3 inline-block py-2 px-4 text-white no-underline">
+                                        <img className="w-8 h-8 rounded-full" src={userPortrait} alt="user profile" />
+                                    </li>
+                                </Link>
+                            </ul>
+                            :
+                            <ul className="list-reset flex justify-between flex-1 md:flex-none items-center">
+                                <Link to={LOGIN_PATH}>
+                                    <li className="flex-1 flex-none mr-3 inline-block py-2 px-4 text-white no-underline">
+                                        Login
+                                    </li>
+                                </Link>
+                            </ul>
+                        }
                     </div>
                 </div>
             </nav>

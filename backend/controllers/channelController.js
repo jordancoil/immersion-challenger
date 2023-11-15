@@ -1,6 +1,3 @@
-// const Channel = require("../models/ChannelModel")
-
-const express = require("express")
 const channelQueries = require("../db/queries/channelQueries")
 
 // TODO add input validation

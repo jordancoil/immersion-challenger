@@ -32,10 +32,10 @@ export default function Home() {
     })
 
     return (
-        <div className="home">
-            <h2>Home</h2>
-            <p>Select a channel</p>
-            { channelElems }
-        </div>
+      <div className="home">
+        <h2>Home</h2>
+        <p>Select a channel</p>
+        { channelElems }
+      </div>
     )
 }
