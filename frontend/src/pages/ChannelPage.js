@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ChannelService from "../services/ChannelService";
 import { useParams } from "react-router-dom";
+import VideoList from "../components/VideoList";
 
 export default function ChannelPage() {
     const { id } = useParams();
@@ -17,10 +18,6 @@ export default function ChannelPage() {
             }
         }
 
-        const fetchChannelVideos = async () => {
-            // TODO
-        }
-
         fetchChannel()
     }, [])
 
@@ -30,6 +27,7 @@ export default function ChannelPage() {
             <div>
                 <h1>{channel.title}</h1>
                 <img src={channel.thumbnail} alt="channel thumnail" />
+                <VideoList channelId={channel.id} />
             </div>}
 
             {error &&

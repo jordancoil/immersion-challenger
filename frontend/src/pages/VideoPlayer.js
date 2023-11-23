@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Link, useParams } from "react-router-dom"
 
 export default function VideoPlayer() {
-    const { channel_id, videoId } = useParams()
+    const { channel_id, yt_video_id } = useParams()
 
     const [playerSize, setPlayerSize] = useState({ width: 640, height: 360})
 
@@ -30,7 +30,7 @@ export default function VideoPlayer() {
                             width={playerSize.width}
                             height={playerSize.height}
                             // src="https://www.youtube.com/embed/Ks-_Mh1QhMc?si=qLM4kdn6eV_JmmdJ" 
-                            src={`https://www.youtube.com/embed/${videoId}`} 
+                            src={`https://www.youtube.com/embed/${yt_video_id}`} 
                             title="YouTube video player" 
                             frameBorder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 

@@ -19,6 +19,16 @@ const getChannelById = async (id) => {
     return pool.query(query).then(result => result);
 }
 
+const getVideosForChannelById = async (id) => {
+    const query = {
+        name: "get-videos-by-channel-id",
+        text: "SELECT * FROM videos WHERE channel_id = $1::int;",
+        values: [id]
+    }
+
+    return pool.query(query).then(result => result);
+}
+
 const createChannel = async (yt_channel_id, title, thumbnail) => {
     const query = {
         name: "create-channel",
@@ -59,6 +69,7 @@ const updateChannel = async (id, yt_channel_id, title, thumbnail) => {
 module.exports = {
     getChannels,
     getChannelById,
+    getVideosForChannelById,
     createChannel,
     deleteChannel,
     updateChannel

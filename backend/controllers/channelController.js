@@ -28,6 +28,19 @@ const getChannel = async (req, res) => {
     })
 }
 
+const getVideosForChannel = (req, res) => {
+    const { id } = req.params
+
+    channelQueries.getVideosForChannelById(id).then((result) => {
+        res.status(200).json(result.rows)
+    }).catch((error) => {
+        // TODO add different handling of various error codes
+        res.status(500).json({
+            message: error.message || "An error occurred while retrieving the Videos."
+        })
+    })
+}
+
 // create a new channel
 const createChannel = async (req, res) => {
     const { yt_channel_id, title, thumbnail } = req.body
@@ -88,6 +101,7 @@ const updateChannel = async (req, res) => {
 module.exports = {
     getChannels,
     getChannel,
+    getVideosForChannel,
     createChannel,
     deleteChannel,
     updateChannel
