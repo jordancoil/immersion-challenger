@@ -4,7 +4,10 @@ const channelQueries = require("../db/queries/channelQueries")
 
 // get all channels
 const getChannels = async (req, res) => {
-    channelQueries.getChannels().then((result) => {
+    let { p } = req.query
+    p = p || "1"
+
+    channelQueries.getChannelsPaginated(p).then((result) => {
         res.status(200).json(result.rows)
     }).catch((error) => {
         // TODO add different handling of various error codes

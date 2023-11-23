@@ -9,6 +9,21 @@ const getChannels = async () => {
     return pool.query(query).then(result => result);
 }
 
+const getChannelsPaginated = async (page) => {
+    const limit = 10
+    const offset = (page - 1) * limit
+    const query = {
+        name: "get-all-channels-paginated",
+        text: `SELECT *, count(*) OVER() AS total_rows
+            FROM channels
+            OFFSET $1::int
+            LIMIT $2::int`,
+        values: [offset, limit]
+    }
+
+    return pool.query(query).then(result => result);
+}
+
 const getChannelById = async (id) => {
     const query = {
         name: "get-channel-by-id",
@@ -68,6 +83,7 @@ const updateChannel = async (id, yt_channel_id, title, thumbnail) => {
 
 module.exports = {
     getChannels,
+    getChannelsPaginated,
     getChannelById,
     getVideosForChannelById,
     createChannel,

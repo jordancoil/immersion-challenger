@@ -34,8 +34,8 @@ const ChannelService = {
         // }
     },
 
-    async getChannels() {
-        return await APIClient.get("/channels")
+    async getChannels(page) {
+        return await APIClient.get(`/channels?p=${page}`)
         .then(res => {
             return res.data
         })
