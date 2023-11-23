@@ -8,7 +8,7 @@ export default function Navbar() {
     const { token } = useAuth()
 
     return (
-        <header>
+        <header className="">
             <nav aria-label="menu nav" className="bg-gray-800 border-b-2 border-slate-500 pt-2 pb-1 px-1 mt-0 h-auto w-full">
                 <div className="flex flex-wrap items-center justify-between">
                     <div>

@@ -584,10 +584,6 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-.static {
-  position: static;
-}
-
 .mr-3 {
   margin-right: 0.75rem;
 }
@@ -612,6 +608,10 @@ video {
   height: auto;
 }
 
+.min-h-screen {
+  min-height: 100vh;
+}
+
 .w-8 {
   width: 2rem;
 }
@@ -620,12 +620,32 @@ video {
   width: 100%;
 }
 
+.max-w-5xl {
+  max-width: 64rem;
+}
+
 .flex-1 {
   flex: 1 1 0%;
 }
 
 .flex-none {
   flex: none;
+}
+
+.flex-auto {
+  flex: 1 1 auto;
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-col {
+  flex-direction: column;
 }
 
 .flex-wrap {

@@ -8,10 +8,9 @@ export default function ChannelPage() {
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        const channelService = new ChannelService()
         const fetchChannel = async () => {
             try {
-                const channel = await channelService.getChannel(id)
+                const channel = await ChannelService.getChannel(id)
                 setChannel(channel)
             } catch (err) {
                 setError(err)
@@ -26,7 +25,7 @@ export default function ChannelPage() {
     }, [])
 
     return (
-        <>
+        <div className="max-w-5xl">
             {channel &&
             <div>
                 <h1>{channel.title}</h1>
@@ -37,6 +36,6 @@ export default function ChannelPage() {
             <div>
                 <p>There was an error loading the channel.</p>
             </div>}
-        </>
+        </div>
     )
 }
