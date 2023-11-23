@@ -42,16 +42,16 @@ export default function VideoPlayer() {
                             </Link> : 
                             <button className="inactive">Next</button>}
                     </div>
-                    <div className="size-container">
-                        <button className={playerSize.width === 426 ? "active-size" : ""}
+                    <div className="size-container flex justify-center">
+                        <button className={`bg-blue-800 hover:bg-blue-600 font-bold py-2 px-4 m-2 rounded ${playerSize.width === 426 ? "border-2 border-blue-600" : ""}`}
                             onClick={() => changePlayerSize(426, 240)}>XS</button>
-                        <button className={playerSize.width === 640 ? "active-size" : ""}
+                        <button className={`bg-blue-800 hover:bg-blue-600 font-bold py-2 px-4 m-2 rounded ${playerSize.width === 640 ? "border-2 border-blue-600" : ""}`}
                             onClick={() => changePlayerSize(640, 360)}>SM</button>
-                        <button className={playerSize.width === 854 ? "active-size" : ""}
+                        <button className={`bg-blue-800 hover:bg-blue-600 font-bold py-2 px-4 m-2 rounded ${playerSize.width === 854 ? "border-2 border-blue-600" : ""}`}
                             onClick={() => changePlayerSize(854, 480)}>MD</button>
-                        <button className={playerSize.width === 1280 ? "active-size" : ""}
+                        <button className={`bg-blue-800 hover:bg-blue-600 font-bold py-2 px-4 m-2 rounded ${playerSize.width === 1280 ? "border-2 border-blue-600" : ""}`}
                             onClick={() => changePlayerSize(1280, 720)}>LG</button>
-                        <button className={playerSize.width === 1920 ? "active-size" : ""}
+                        <button className={`bg-blue-800 hover:bg-blue-600 font-bold py-2 px-4 m-2 rounded ${playerSize.width === 1920 ? "border-2 border-blue-600" : ""}`}
                             onClick={() => changePlayerSize(1920, 1080)}>XL</button>
                     </div>
                 </div>

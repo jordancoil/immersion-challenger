@@ -14,6 +14,7 @@ export default function Home() {
         fetchChannels()
     }, [])
     
+    // TODO: Paginate channels
     const channelElems = channels?.map(channel => {
         return (
             <div key={channel.id}>
