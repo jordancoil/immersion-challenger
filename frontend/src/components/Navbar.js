@@ -1,6 +1,6 @@
 import userPortrait from "../assets/images/user_portrait.png"
 import { useAuth } from "../providers/AuthProvider"
-import { LOGIN_PATH, LOGOUT_PATH, PROFILE_PATH } from "../routes"
+import { LOGIN_PATH, LOGOUT_PATH, PROFILE_PATH, REGISTER_PATH } from "../routes"
 
 const { Link } = require("react-router-dom")
 
@@ -8,8 +8,8 @@ export default function Navbar() {
     const { token } = useAuth()
 
     return (
-        <header className="">
-            <nav aria-label="menu nav" className="bg-gray-800 border-b-2 border-slate-500 pt-2 pb-1 px-1 mt-0 h-auto w-full">
+        <header className="mb-8">
+            <nav aria-label="menu nav" className="bg-gray-50 dark:bg-gray-900 border-b-2 border-slate-500 pt-2 pb-1 px-1 mt-0 h-auto w-full">
                 <div className="flex flex-wrap items-center justify-between">
                     <div>
                         <ul className="list-reset flex justify-between flex-1 md:flex-none items-center">
@@ -39,6 +39,11 @@ export default function Navbar() {
                                 <Link to={LOGIN_PATH}>
                                     <li className="flex-1 flex-none mr-3 inline-block py-2 px-4 text-white no-underline">
                                         Login
+                                    </li>
+                                </Link>
+                                <Link to={REGISTER_PATH}>
+                                    <li className="flex-1 flex-none mr-3 inline-block py-2 px-4 text-white no-underline">
+                                        Register
                                     </li>
                                 </Link>
                             </ul>

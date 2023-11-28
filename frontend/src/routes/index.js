@@ -7,10 +7,12 @@ import Home from "../pages/Home"
 import { useAuth } from "../providers/AuthProvider"
 import { ProtectedRoute } from "./ProtectedRoute"
 import VideoPlayer from "../pages/VideoPlayer"
+import Register from "../components/Auth/Register"
 
 export const HOME_PATH = "/"
 
 export const LOGIN_PATH = "/login"
+export const REGISTER_PATH = "/register"
 export const LOGOUT_PATH = "/logout"
 export const PROFILE_PATH = "/profile"
 
@@ -39,6 +41,10 @@ const Routes = () => {
         {
             path: LOGIN_PATH, 
             element: <Login />
+        },
+        {
+            path: REGISTER_PATH, 
+            element: <Register />
         },
     ]
 
