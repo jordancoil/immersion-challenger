@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link, useParams } from "react-router-dom"
+import { VIDEO_PATH } from "../routes"
 
 export default function VideoPlayer() {
     const { channel_id, yt_video_id } = useParams()
@@ -21,7 +22,7 @@ export default function VideoPlayer() {
                     <div className="video-container">
 
                         {video.prevVideo != "" ? 
-                            <Link to={`/channel/${channel_id}/video/${video.prevVideo}`}>
+                            <Link to={VIDEO_PATH(channel_id, video.prevVideo)}>
                                 <button>Prev</button>
                             </Link> : 
                             <button className="inactive">Prev</button>}
@@ -37,7 +38,7 @@ export default function VideoPlayer() {
                             allowFullScreen></iframe>
 
                         {video.nextVideo != "" ? 
-                            <Link to={`/channel/${channel_id}/video/${video.nextVideo}`}>
+                            <Link to={VIDEO_PATH(channel_id, video.nextVideo)}>
                                 <button>Next</button>
                             </Link> : 
                             <button className="inactive">Next</button>}

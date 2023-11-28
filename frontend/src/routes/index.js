@@ -14,6 +14,7 @@ export const LOGIN_PATH = "/login"
 export const LOGOUT_PATH = "/logout"
 export const PROFILE_PATH = "/profile"
 
+export const CHANNEL_PATH = (channel_id) => `/channels/${channel_id}`
 export const VIDEO_PATH = (channel_id, yt_video_id) => `/channels/${channel_id}/videos/${yt_video_id}`
 
 const Routes = () => {

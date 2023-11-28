@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import ChannelService from "../services/ChannelService"
 import { Link } from "react-router-dom"
 import Pagination from "../components/Pagination"
+import { CHANNEL_PATH } from "../routes"
 
 export default function Home() {
     const [channels, setChannels] = useState([])
@@ -25,7 +26,7 @@ export default function Home() {
     const channelElems = channels?.map(channel => {
         return (
             <div key={channel.id}>
-                <Link to={`/channel/${channel.id}`}>
+                <Link to={CHANNEL_PATH(channel.id)}>
                     <img src={channel.thumbnail} alt="channel thumnail" />
                     <h2>{channel.title}</h2>
                 </Link>
