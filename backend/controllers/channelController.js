@@ -3,102 +3,140 @@ const channelQueries = require("../db/queries/channelQueries")
 // TODO add input validation
 
 // get all channels
-const getChannels = async (req, res) => {
-    let { p } = req.query
-    p = p || "1"
+const getChannels = async (req, res, next) => {
+    try {
+        let { p } = req.query
+        p = p || "1"
 
-    channelQueries.getChannelsPaginated(p).then((result) => {
-        res.status(200).json(result.rows)
-    }).catch((error) => {
-        // TODO add different handling of various error codes
+        const asdf = fdsa // error check?
+
+        channelQueries.getChannelsPaginated(p).then((result) => {
+            res.status(200).json(result.rows)
+        }).catch((error) => {
+            // TODO add different handling of various error codes
+            res.status(500).json({
+                message: error.message || "An error occurred while retrieving Channels."
+            })
+        })
+    } catch (error) {
         res.status(500).json({
             message: error.message || "An error occurred while retrieving Channels."
         })
-    })
+    }
 }
 
 // get a single channel
 const getChannel = async (req, res) => {
-    const { id } = req.params
+    try {
+        const { id } = req.params
 
-    channelQueries.getChannelById(id).then((result) => {
-        res.status(200).json(result.rows[0])
-    }).catch((error) => {
-        // TODO add different handling of various error codes
+        channelQueries.getChannelById(id).then((result) => {
+            res.status(200).json(result.rows[0])
+        }).catch((error) => {
+            // TODO add different handling of various error codes
+            res.status(500).json({
+                message: error.message || "An error occurred while retrieving the Channel."
+            })
+        })
+    } catch (error) {
         res.status(500).json({
             message: error.message || "An error occurred while retrieving the Channel."
         })
-    })
+    }
 }
 
 const getVideosForChannel = (req, res) => {
-    const { id } = req.params
+    try {
+        const { id } = req.params
 
-    channelQueries.getVideosForChannelById(id).then((result) => {
-        res.status(200).json(result.rows)
-    }).catch((error) => {
-        // TODO add different handling of various error codes
+        channelQueries.getVideosForChannelById(id).then((result) => {
+            res.status(200).json(result.rows)
+        }).catch((error) => {
+            // TODO add different handling of various error codes
+            res.status(500).json({
+                message: error.message || "An error occurred while retrieving the Videos."
+            })
+        })
+    } catch (error) {
         res.status(500).json({
             message: error.message || "An error occurred while retrieving the Videos."
         })
-    })
+    }
 }
 
 // create a new channel
 const createChannel = async (req, res) => {
-    const { yt_channel_id, title, thumbnail } = req.body
+    try {
+        const { yt_channel_id, title, thumbnail } = req.body
 
-    if (!yt_channel_id) {
-        res.status(400).send({
-            message: "Channel ID cannot be empty!"
-        });
-        return;
-    }
+        if (!yt_channel_id) {
+            res.status(400).send({
+                message: "Channel ID cannot be empty!"
+            });
+            return;
+        }
 
-    if (!title) {
-        res.status(400).send({
-            message: "Title cannot be empty!"
-        });
-        return;
-    }
+        if (!title) {
+            res.status(400).send({
+                message: "Title cannot be empty!"
+            });
+            return;
+        }
 
-    channelQueries.createChannel(yt_channel_id, title, thumbnail).then((result) => {
-        res.status(200).json(result.rows[0])
-    }).catch((error) => {
-        // TODO add different handling of various error codes
+        channelQueries.createChannel(yt_channel_id, title, thumbnail).then((result) => {
+            res.status(200).json(result.rows[0])
+        }).catch((error) => {
+            // TODO add different handling of various error codes
+            res.status(500).json({
+                message: error.message || "An error occurred while creating the Channel."
+            })
+        })
+    } catch (error) {
         res.status(500).json({
             message: error.message || "An error occurred while creating the Channel."
         })
-    })
+    }
 }
 
 // delete a new channel
 const deleteChannel = async (req, res) => {
-    const { id } = req.params
+    try {
+        const { id } = req.params
 
-    channelQueries.deleteChannel(id).then((result) => {
-        res.status(200).json(result.rows[0])
-    }).catch((error) => {
-        // TODO add different handling of various error codes
+        channelQueries.deleteChannel(id).then((result) => {
+            res.status(200).json(result.rows[0])
+        }).catch((error) => {
+            // TODO add different handling of various error codes
+            res.status(500).json({
+                message: error.message || "An error occurred while deleting the Channel."
+            })
+        })
+    } catch (error) {
         res.status(500).json({
             message: error.message || "An error occurred while deleting the Channel."
         })
-    })
+    }
 }
 
 // update a channel
 const updateChannel = async (req, res) => {
-    const { id } = req.params
-    const { yt_channel_id, title, thumbnail } = req.body
+    try {
+        const { id } = req.params
+        const { yt_channel_id, title, thumbnail } = req.body
 
-    channelQueries.updateChannel(id, yt_channel_id, title, thumbnail).then((result) => {
-        res.status(200).json(result.rows[0])
-    }).catch((error) => {
-        // TODO add different handling of various error codes
+        channelQueries.updateChannel(id, yt_channel_id, title, thumbnail).then((result) => {
+            res.status(200).json(result.rows[0])
+        }).catch((error) => {
+            // TODO add different handling of various error codes
+            res.status(500).json({
+                message: error.message || "An error occurred while updating the Channel."
+            })
+        })
+    } catch (error) {
         res.status(500).json({
             message: error.message || "An error occurred while updating the Channel."
         })
-    })
+    }
 }
 
 module.exports = {
