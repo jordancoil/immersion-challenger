@@ -5,13 +5,18 @@ const jwt = require('jsonwebtoken');
 
 
 const login = async (req, res) => {
-    const { email, password } = req.body
+    const { email, password, stayLoggedIn } = req.body
 
     authQueries.getUserByEmail(email)
     .then(result => {
-        if(bcrypt.compareSync('passwordToCompare', hash)) {
-            const token = jwt.sign({ login: 'valid' }, process.env.JWT_KEY);
+        const user = result.rows[0]
+        if (bcrypt.compareSync(password, user.password_hash)) {
+            const tokenOptions = stayLoggedIn ? {} : { expiresIn: '15m' }
 
+            const token = jwt.sign({ 
+                login: "valid"
+            }, process.env.JWT_KEY, tokenOptions);
+            
             res.status(200).send({
                 token: token
             });
@@ -47,8 +52,10 @@ const register = async (req, res) => {
     }
 
     const password_hash = bcrypt.hashSync(password, 10);
+    // const timestamp = new Date().toISOString();
+    const timestamp = Date.now();
 
-    authQueries.newUser(email, password_hash, false, Date.now().toString())
+    authQueries.newUser(email, password_hash, timestamp)
     .then(result => {
         const token = jwt.sign({ login: 'valid' }, process.env.JWT_KEY);
 

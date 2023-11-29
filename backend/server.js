@@ -7,6 +7,7 @@ const authRoutes = require("./routes/authRoutes")
 const app = express()
 
 // MIDDLEWARE
+// TODO: ADD AUTHENTICATION LAYER TO CHECK FOR JSON WEB TOKENS 
 app.use(cors())
 app.use(express.json())
 app.use((req, res, next) => {

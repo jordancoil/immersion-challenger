@@ -1,16 +1,19 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
-import { HOME_PATH } from "../../routes";
+import { FORGOT_PASSWORD_PATH, HOME_PATH } from "../../routes";
 import AuthService from "../../services/AuthService";
 
 
+// TODO: add "remember me" and send that data to generate 
+//  correct cooresponding token
 export default function Login() {
     const { updateToken } = useAuth()
     const navigate = useNavigate()
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const [stayLoggedIn, setStayLoggedIn] = useState(false);
     const [formError, setFormError] = useState(null);
 
     const handleLogin = async (e) => {
@@ -18,11 +21,16 @@ export default function Login() {
         
         const token = await AuthService.loginUser({
             email: email,
-            password: password
+            password: password,
+            stayLoggedIn: stayLoggedIn
         })
 
         updateToken(token)
         navigate(HOME_PATH, { replace: true })
+    }
+
+    const toggleCheckbox = () => {
+        setStayLoggedIn(prev => !prev)
     }
 
     return(
@@ -46,8 +54,22 @@ export default function Login() {
                         <input className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                             type="password" onChange={e => setPassword(e.target.value)} />
                     </label>
+                    <div className="flex items-center justify-between">
+                        <div className="flex items-start">
+                            <div className="flex items-center h-5">
+                                <input className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" 
+                                    aria-describedby="remember" type="checkbox" checked={stayLoggedIn} onChange={toggleCheckbox} />
+                            </div>
+                            <div className="ml-3 text-sm">
+                                <label className="text-gray-500 dark:text-gray-300">Remember me</label>
+                            </div>
+                        </div>
+                        <Link to={FORGOT_PASSWORD_PATH} className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">
+                            Forgot password?
+                        </Link>
+                    </div>
                     <div>
-                    <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                        <button className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                             type="submit">Submit</button>
                     </div>
                 </form>
