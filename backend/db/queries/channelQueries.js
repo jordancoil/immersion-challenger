@@ -10,15 +10,15 @@ const getChannels = async () => {
 }
 
 const getChannelsPaginated = async (page) => {
-    const limit = 10
-    const offset = (page - 1) * limit
+    const ITEMS_PER_PAGE = 12
+    const offset = (page - 1) * ITEMS_PER_PAGE
     const query = {
         name: "get-all-channels-paginated",
         text: `SELECT *, count(*) OVER() AS total_rows
             FROM channels
             OFFSET $1::int
             LIMIT $2::int`,
-        values: [offset, limit]
+        values: [offset, ITEMS_PER_PAGE]
     }
 
     return pool.query(query).then(result => result);
