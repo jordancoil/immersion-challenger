@@ -8,12 +8,9 @@ const getChannels = async (req, res, next) => {
         let { p } = req.query
         p = p || "1"
 
-        const asdf = fdsa // error check?
-
         channelQueries.getChannelsPaginated(p).then((result) => {
             res.status(200).json(result.rows)
         }).catch((error) => {
-            // TODO add different handling of various error codes
             res.status(500).json({
                 message: error.message || "An error occurred while retrieving Channels."
             })
@@ -33,7 +30,6 @@ const getChannel = async (req, res) => {
         channelQueries.getChannelById(id).then((result) => {
             res.status(200).json(result.rows[0])
         }).catch((error) => {
-            // TODO add different handling of various error codes
             res.status(500).json({
                 message: error.message || "An error occurred while retrieving the Channel."
             })
@@ -52,7 +48,6 @@ const getVideosForChannel = (req, res) => {
         channelQueries.getVideosForChannelById(id).then((result) => {
             res.status(200).json(result.rows)
         }).catch((error) => {
-            // TODO add different handling of various error codes
             res.status(500).json({
                 message: error.message || "An error occurred while retrieving the Videos."
             })
@@ -86,7 +81,6 @@ const createChannel = async (req, res) => {
         channelQueries.createChannel(yt_channel_id, title, thumbnail).then((result) => {
             res.status(200).json(result.rows[0])
         }).catch((error) => {
-            // TODO add different handling of various error codes
             res.status(500).json({
                 message: error.message || "An error occurred while creating the Channel."
             })
@@ -106,7 +100,6 @@ const deleteChannel = async (req, res) => {
         channelQueries.deleteChannel(id).then((result) => {
             res.status(200).json(result.rows[0])
         }).catch((error) => {
-            // TODO add different handling of various error codes
             res.status(500).json({
                 message: error.message || "An error occurred while deleting the Channel."
             })
@@ -127,7 +120,6 @@ const updateChannel = async (req, res) => {
         channelQueries.updateChannel(id, yt_channel_id, title, thumbnail).then((result) => {
             res.status(200).json(result.rows[0])
         }).catch((error) => {
-            // TODO add different handling of various error codes
             res.status(500).json({
                 message: error.message || "An error occurred while updating the Channel."
             })

@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../providers/AuthProvider";
 import { FORGOT_PASSWORD_PATH, HOME_PATH } from "../../routes";
 import AuthService from "../../services/AuthService";
 
 
-// TODO: add "remember me" and send that data to generate 
-//  correct cooresponding token
 export default function Login() {
     const { updateToken } = useAuth()
     const navigate = useNavigate()
+
+    const { newUser } = useLocation().state
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
@@ -43,6 +43,12 @@ export default function Login() {
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
                     {formError}
                 </div>}
+
+                {newUser && 
+                <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+                    Registration successful! You can now sign in to your account.
+                </div>}
+                
                 <form className="space-y-4 md:space-y-6" onSubmit={handleLogin}>
                     <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                         <p>Email</p>

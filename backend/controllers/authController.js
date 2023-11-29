@@ -28,7 +28,6 @@ const login = async (req, res) => {
             }
         })
         .catch((error) => {
-            // TODO add different handling of various error codes
             res.status(500).json({
                 message: error.message || "An error occurred while retrieving the user."
             })

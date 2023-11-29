@@ -10,8 +10,16 @@ export default function Home() {
     
     useEffect(() => {
         const fetchChannels = async () => {
-            const channels = await ChannelService.getChannels(page)
-            setChannels(channels)
+            ChannelService.getChannels(page)
+            .then(channels => {
+                if (channels !== undefined) {
+                    setChannels(channels)
+                }
+            })
+            .catch(error => {
+                console.log("error: ", error)
+            })
+            
         }
         
         fetchChannels()

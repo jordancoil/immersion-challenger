@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../providers/AuthProvider";
-import { HOME_PATH } from "../../routes";
+import { LOGIN_PATH } from "../../routes";
 import AuthService from "../../services/AuthService";
 
 export default function Register() {
-    const { updateToken } = useAuth()
     const navigate = useNavigate()
 
     const [email, setEmail] = useState("");
@@ -27,13 +25,17 @@ export default function Register() {
             return
         }
 
-        const token = await AuthService.registerUser({
+        AuthService.registerUser({
             email: email,
             password: password
         })
-
-        updateToken(token)
-        navigate(HOME_PATH, { replace: true })
+        .then(() => {
+            // TODO replace token with success / fail value
+            navigate(LOGIN_PATH, { replace: true, state: { newUser: true } })
+        })
+        .catch(error => {
+            setFormError(error.message || "Something went wrong.")
+        })
     }
 
     return(
