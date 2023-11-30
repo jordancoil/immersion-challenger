@@ -1,4 +1,5 @@
 const channelQueries = require("../db/queries/channelQueries")
+const { validateJWT, parseTokenFromAuthHeader } = require("../util/authUtil")
 
 // TODO add input validation
 
@@ -44,8 +45,29 @@ const getChannel = async (req, res) => {
 const getVideosForChannel = (req, res) => {
     try {
         const { id } = req.params
-
+        
         channelQueries.getVideosForChannelById(id).then((result) => {
+            res.status(200).json(result.rows)
+        }).catch((error) => {
+            res.status(500).json({
+                message: error.message || "An error occurred while retrieving the Videos."
+            })
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: error.message || "An error occurred while retrieving the Videos."
+        })
+    }
+}
+
+const getVideosWithWatchedStatus = async (req, res) => {
+    try {
+        const { id } = req.params
+        
+        const token = parseTokenFromAuthHeader(req.headers.authorization)
+        const { userId } = await validateJWT(token)
+        
+        channelQueries.getVideosWithWatchedStatus(id, userId).then((result) => {
             res.status(200).json(result.rows)
         }).catch((error) => {
             res.status(500).json({
@@ -135,6 +157,7 @@ module.exports = {
     getChannels,
     getChannel,
     getVideosForChannel,
+    getVideosWithWatchedStatus,
     createChannel,
     deleteChannel,
     updateChannel

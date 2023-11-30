@@ -9,5 +9,5 @@ CREATE TABLE videos (
 
 -- SAMPLE INSERT
 -- INSERT INTO videos (channel_id, yt_video_id, title, video_index) VALUES 
---     (3, 'jn6KosCssW8', '【初投稿】コムドットの始まり', 0),
---     (3, 'VAce-PL7Tfc', 'コムドットの名前決め', 1);
+--     (3, 'jn6KosCssW8', '【初投稿】コムドットの始まり', 1),
+--     (3, 'VAce-PL7Tfc', 'コムドットの名前決め', 2);

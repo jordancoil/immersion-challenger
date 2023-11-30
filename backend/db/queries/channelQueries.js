@@ -44,6 +44,20 @@ const getVideosForChannelById = async (id) => {
     return pool.query(query).then(result => result);
 }
 
+const getVideosWithWatchedStatus = async (id, userId) => {
+    const query = {
+        name: "get-watched-videos-by-user-and-channel-id",
+        text: `SELECT v.*,
+            CASE WHEN wv.id IS NOT NULL THEN 'Watched' ELSE 'Not Watched' END AS watched_status
+            FROM videos v
+            LEFT JOIN watched_videos wv ON v.id = wv.video_id AND wv.user_id = $2::int
+            WHERE v.channel_id = $1::int;`,
+        values: [id, userId]
+    }
+
+    return pool.query(query).then(result => result);
+}
+
 const createChannel = async (yt_channel_id, title, thumbnail) => {
     const query = {
         name: "create-channel",
@@ -85,6 +99,7 @@ module.exports = {
     getChannels,
     getChannelsPaginated,
     getChannelById,
+    getVideosWithWatchedStatus,
     getVideosForChannelById,
     createChannel,
     deleteChannel,

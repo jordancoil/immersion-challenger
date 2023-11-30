@@ -9,7 +9,8 @@ export default function Login() {
     const { updateToken } = useAuth()
     const navigate = useNavigate()
 
-    const { newUser } = useLocation().state
+    const { state } = useLocation()
+    const newUser = state ? state.newUser : undefined
 
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
