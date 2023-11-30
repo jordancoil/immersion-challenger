@@ -3,12 +3,15 @@ import VideoService from "../services/VideoService"
 import { Link, useNavigate } from "react-router-dom"
 import { VIDEO_PATH } from "../routes"
 import { useAuth } from "../providers/AuthProvider"
+import isTokenExpired from "../hooks/isTokenExpired"
+
 
 const VideoList = ({ channelId }) => {
     const [videos, setVideos] = useState([])
     const [error, setError] = useState(null)
 
     const { token } = useAuth()
+    const expiredToken = isTokenExpired(token)
 
     const navigate = useNavigate()
 
@@ -17,9 +20,12 @@ const VideoList = ({ channelId }) => {
 
         const fetchVideos = async () => {
             try {
-                const videos = token ? 
-                    await VideoService.getVideosWithWatchedStatus(channelId) :
-                    await VideoService.getVideosForChannel(channelId)
+                let videos;
+                if (token && !expiredToken) {
+                    videos = await VideoService.getVideosWithWatchedStatus(channelId)
+                } else {
+                    videos = await VideoService.getVideosForChannel(channelId)
+                }
 
                 setVideos(videos)
             } catch (err) {
@@ -47,10 +53,9 @@ const VideoList = ({ channelId }) => {
                         {video.video_index}
                     </td>
                     <td className="px-6 py-4">
-                        {token ?
+                        {token && !expiredToken ?
                         video.watched_status :
                         "Please sign in to track progress"}
-                        {console.log(video)}
                     </td>
                     <td className="px-6 py-4">
                         <Link className="font-medium text-blue-600 dark:text-blue-500 hover:underline" to={VIDEO_PATH(channelId, video.yt_video_id)}>
