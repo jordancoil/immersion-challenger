@@ -9,7 +9,7 @@ const getChannels = async (req, res, next) => {
         let { p } = req.query
         p = p || "1"
 
-        channelQueries.getChannelsPaginated(p).then((result) => {
+        channelQueries.getChannelsPaginatedWithVideoCount(p).then((result) => {
             res.status(200).json(result.rows)
         }).catch((error) => {
             res.status(500).json({

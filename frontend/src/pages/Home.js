@@ -34,7 +34,7 @@ export default function Home() {
     
     const channelElems = channels?.map(channel => {
         return (
-            <div key={channel.id} className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div key={channel.id} className="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <div className="rounded-t-lg">
                     <Link to={CHANNEL_PATH(channel.id)}>
                         <img src={channel.thumbnail} alt="channel thumnail" className="w-full" />
@@ -47,7 +47,7 @@ export default function Home() {
                         </h5>
                     </Link>
                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                        NUMBER OF VIDEOS GOES HERE
+                        Videos: {channel.videos_count}
                     </p>
                     <Link to={CHANNEL_PATH(channel.id)} className="block w-full text-center items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         View Channel
@@ -65,7 +65,7 @@ export default function Home() {
             <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
                 Channels
             </h1>
-            <div className="grid grid-flow-row gap-8 text-neutral-600 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="w-full grid grid-flow-row gap-8 text-neutral-600 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 { channelElems }
             </div>
             <div className="mt-5 py-5">
