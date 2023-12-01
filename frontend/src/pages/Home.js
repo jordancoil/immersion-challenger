@@ -7,8 +7,6 @@ import { CHANNEL_PATH } from "../routes"
 export default function Home() {
     const [channels, setChannels] = useState([])
     const [page, setPage] = useState(1)
-
-    const ITEMS_PER_PAGE = 12
     
     useEffect(() => {
         const fetchChannels = async () => {

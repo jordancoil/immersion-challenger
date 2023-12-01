@@ -1,11 +1,11 @@
 import { Navigate, Outlet } from "react-router-dom"
-import { useAuth } from "../providers/AuthProvider"
 import { LOGIN_PATH } from "."
+import { useCookies } from "react-cookie";
 
 export const ProtectedRoute = () => {
-    const { token } = useAuth()
+    const [cookies] = useCookies(["userId"]);
 
-    if (!token) {
+    if (!cookies.userId) {
         return <Navigate to={LOGIN_PATH} />
     }
 

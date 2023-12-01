@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../../providers/AuthProvider";
 import { FORGOT_PASSWORD_PATH, HOME_PATH } from "../../routes";
 import AuthService from "../../services/AuthService";
+import { useCookies } from "react-cookie";
 
 
 export default function Login() {
-    const { updateToken } = useAuth()
+    const [cookies, setCookie] = useCookies(["userId"]);
     const navigate = useNavigate()
 
     const { state } = useLocation()
@@ -20,14 +20,17 @@ export default function Login() {
     const handleLogin = async (e) => {
         e.preventDefault()
         
-        const token = await AuthService.loginUser({
+        await AuthService.loginUser({
             email: email,
             password: password,
             stayLoggedIn: stayLoggedIn
-        })
+        }).then(userId => {
+            setCookie("userId", userId, { path: "/" });
 
-        updateToken(token)
-        navigate(HOME_PATH, { replace: true })
+            navigate(HOME_PATH, { replace: true })
+        }).catch(error => {
+            setFormError(error.message)
+        })
     }
 
     const toggleCheckbox = () => {

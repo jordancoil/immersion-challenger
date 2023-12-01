@@ -11,8 +11,8 @@ const VideoService = {
         })
     },
 
-    async getVideosWithWatchedStatus(channelId) {
-        return await APIClient.get(`/channels/${channelId}/videos/watched`)
+    async getVideosWithWatchedStatus(channelId, userId) {
+        return await APIClient.get(`/channels/${channelId}/videos/watched/${userId}`)
         .then(res => {
             return res.data
         })

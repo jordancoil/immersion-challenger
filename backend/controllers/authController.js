@@ -1,7 +1,6 @@
 require("dotenv").config()
 const authQueries = require("../db/queries/authQueries")
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 
 
 const login = async (req, res) => {
@@ -12,14 +11,8 @@ const login = async (req, res) => {
         .then(result => {
             const user = result.rows[0]
             if (bcrypt.compareSync(password, user.password_hash)) {
-                const tokenOptions = stayLoggedIn ? {} : { expiresIn: '15m' }
-
-                const token = jwt.sign({ 
-                    userId: user.id
-                }, process.env.JWT_KEY, tokenOptions);
-                
                 res.status(200).send({
-                    token: token
+                    userId: user.id
                 });
             } else {
                 res.status(200).send({
@@ -63,10 +56,9 @@ const register = async (req, res) => {
         authQueries.newUser(email, password_hash, timestamp)
         .then(result => {
             const user = result.rows[0]
-            const token = jwt.sign({ userId: user.id }, process.env.JWT_KEY);
 
             res.status(200).send({
-                token: token
+                success: true
             });
         })
         .catch((error) => {

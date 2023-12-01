@@ -30,7 +30,6 @@ export default function Register() {
             password: password
         })
         .then(() => {
-            // TODO replace token with success / fail value
             navigate(LOGIN_PATH, { replace: true, state: { newUser: true } })
         })
         .catch(error => {

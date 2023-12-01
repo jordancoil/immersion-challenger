@@ -8,7 +8,7 @@ const AuthService = {
     async loginUser(credentials) {
         return await APIClient.post("/auth/login", credentials)
         .then(res => {
-            return res.data.token
+            return res.data.userId
         })
         .catch(err => {
             console.error(err)
@@ -18,7 +18,7 @@ const AuthService = {
     async registerUser(credentials) {
         return await APIClient.post("/auth/register", credentials)
         .then(res => {
-            return res.data.token
+            return res.data.success
         })
         .catch(err => {
             console.error(err)
@@ -48,7 +48,7 @@ const AuthService = {
             errors.push("You password must include a number.")
         }
 
-        if (password != passwordConfirmation) {
+        if (password !== passwordConfirmation) {
             errors.push("Passwords do not match.")
         }
 

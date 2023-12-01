@@ -1,13 +1,13 @@
 import { useEffect } from "react"
 import { Navigate } from "react-router-dom"
-import { useAuth } from "../../providers/AuthProvider"
 import { HOME_PATH } from "../../routes"
+import { useCookies } from "react-cookie"
 
 const Logout = () => {
-    const { updateToken } = useAuth()
+    const [cookies, setCookie, removeCookie] = useCookies(["userId"]);
 
     useEffect(() => {
-        updateToken(null)
+        removeCookie("userId")
     }, [])
 
     return (

@@ -7,13 +7,9 @@ const Pagination = ({ currentPage, totalItems, changePage }) => {
 
     useEffect(() => {
         setMaxPage(Math.ceil(totalItems / 12))
-        setMaxEntry(Math.min(currentPage * 12, totalItems))
-    }, [totalItems])
-
-    useEffect(() => {
         setMinEntry((currentPage - 1) * 12 + 1)
         setMaxEntry(Math.min(currentPage * 12, totalItems))
-    }, [currentPage])
+    }, [currentPage, totalItems])
 
     const prevPage = () => {
         changePage(prev => prev-1)

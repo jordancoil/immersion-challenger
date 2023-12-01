@@ -4,10 +4,10 @@ import Login from "../components/Auth/Login"
 import Logout from "../components/Auth/Logout"
 import ChannelPage from "../pages/ChannelPage"
 import Home from "../pages/Home"
-import { useAuth } from "../providers/AuthProvider"
 import { ProtectedRoute } from "./ProtectedRoute"
 import VideoPlayer from "../pages/VideoPlayer"
 import Register from "../components/Auth/Register"
+import { useCookies } from "react-cookie"
 
 export const HOME_PATH = "/"
 
@@ -21,7 +21,9 @@ export const CHANNEL_PATH = (channel_id) => `/channels/${channel_id}`
 export const VIDEO_PATH = (channel_id, yt_video_id) => `/channels/${channel_id}/videos/${yt_video_id}`
 
 const Routes = () => {
-    const { token } = useAuth()
+    const [cookies, setCookie, removeCookie] = useCookies(["userId"]);
+
+    // removeCookie("userId")
 
     const publicRoutes = [
         {
@@ -72,7 +74,7 @@ const Routes = () => {
             element: <Layout />,
             children: [
                 ...publicRoutes,
-                ...(!token ? nonAuthenticatedRoutes : []),
+                ...(!cookies.userId ? nonAuthenticatedRoutes : []),
                 ...authenticatedRoutes
             ]
         }

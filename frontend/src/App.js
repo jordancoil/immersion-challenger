@@ -1,14 +1,14 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import AuthProvider from "./providers/AuthProvider";
 import Routes from "./routes";
+import { CookiesProvider, useCookies } from "react-cookie";
 
 
 const App = () => {
     return (
-        <AuthProvider>
+        <CookiesProvider>
             <Routes />
-        </AuthProvider>
+        </CookiesProvider>
     )
 }
 

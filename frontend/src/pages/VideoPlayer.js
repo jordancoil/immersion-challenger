@@ -21,7 +21,7 @@ export default function VideoPlayer() {
                     <p>{video.videoIndex} / {video.totalVideos}</p>
                     <div className="video-container">
 
-                        {video.prevVideo != "" ? 
+                        {video.prevVideo !== "" ? 
                             <Link to={VIDEO_PATH(channel_id, video.prevVideo)}>
                                 <button>Prev</button>
                             </Link> : 
@@ -37,7 +37,7 @@ export default function VideoPlayer() {
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                             allowFullScreen></iframe>
 
-                        {video.nextVideo != "" ? 
+                        {video.nextVideo !== "" ? 
                             <Link to={VIDEO_PATH(channel_id, video.nextVideo)}>
                                 <button>Next</button>
                             </Link> : 

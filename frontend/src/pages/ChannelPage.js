@@ -19,7 +19,7 @@ export default function ChannelPage() {
         }
 
         fetchChannel()
-    }, [])
+    })
 
     return (
         <>

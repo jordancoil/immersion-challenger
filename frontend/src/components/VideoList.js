@@ -2,18 +2,18 @@ import { useEffect, useState } from "react"
 import VideoService from "../services/VideoService"
 import { Link, useNavigate } from "react-router-dom"
 import { VIDEO_PATH } from "../routes"
-import { useAuth } from "../providers/AuthProvider"
-import isTokenExpired from "../hooks/isTokenExpired"
+import { useCookies } from "react-cookie"
 
 
 const VideoList = ({ channelId }) => {
+    const [cookies] = useCookies(["userId"]);
+
     const [videos, setVideos] = useState([])
     const [error, setError] = useState(null)
 
-    const { token } = useAuth()
-    const expiredToken = isTokenExpired(token)
-
     const navigate = useNavigate()
+
+    console.log(cookies.userId)
 
     useEffect(() => {
         if (channelId === undefined) return
@@ -21,8 +21,8 @@ const VideoList = ({ channelId }) => {
         const fetchVideos = async () => {
             try {
                 let videos;
-                if (token && !expiredToken) {
-                    videos = await VideoService.getVideosWithWatchedStatus(channelId)
+                if (cookies.userId) {
+                    videos = await VideoService.getVideosWithWatchedStatus(channelId, cookies.userId)
                 } else {
                     videos = await VideoService.getVideosForChannel(channelId)
                 }
@@ -53,7 +53,7 @@ const VideoList = ({ channelId }) => {
                         {video.video_index}
                     </td>
                     <td className="px-6 py-4">
-                        {token && !expiredToken ?
+                        {cookies.userId ?
                         video.watched_status :
                         "Please sign in to track progress"}
                     </td>
