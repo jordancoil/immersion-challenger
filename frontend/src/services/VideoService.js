@@ -19,6 +19,26 @@ const VideoService = {
         .catch(err => {
             console.error(err)
         })
+    },
+
+    async markVideoWatched(videoId, userId) {
+        return await APIClient.post(`/videos/${videoId}/mark-watched/${userId}`)
+        .then(res => {
+            return res.data
+        })
+        .catch(err => {
+            console.error(err)
+        })
+    },
+
+    async markVideoNotWatched(videoId, userId) {
+        return await APIClient.post(`/videos/${videoId}/mark-not-watched/${userId}`)
+        .then(res => {
+            return res.data
+        })
+        .catch(err => {
+            console.error(err)
+        })
     }
 }
 

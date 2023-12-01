@@ -13,8 +13,6 @@ const VideoList = ({ channelId }) => {
 
     const navigate = useNavigate()
 
-    console.log(cookies.userId)
-
     useEffect(() => {
         if (channelId === undefined) return
 
@@ -36,6 +34,31 @@ const VideoList = ({ channelId }) => {
         fetchVideos()
     }, [channelId])
 
+    const markWatched = async (videoId) => {
+        await VideoService.markVideoWatched(videoId, cookies.userId)
+        toggleWatched(videoId)
+    }
+
+    const markNotWatched = async (videoId) => {
+        await VideoService.markVideoNotWatched(videoId, cookies.userId)
+        toggleWatched(videoId)
+    }
+
+    const toggleWatched = (videoId) => {
+        setVideos(prev => (
+            prev.map(vid => {
+                if (vid.id === videoId) {
+                    return {
+                        ...vid,
+                        watched_status: vid.watched_status === "Watched" ? "Not Watched" : "Watched"
+                    }
+                } else {
+                    return vid
+                }
+            })
+        ))
+    }
+
     return (
         <tbody>
             {error &&
@@ -54,8 +77,22 @@ const VideoList = ({ channelId }) => {
                     </td>
                     <td className="px-6 py-4">
                         {cookies.userId ?
-                        video.watched_status :
-                        "Please sign in to track progress"}
+                            <>
+                                {video.watched_status === "Watched" ?
+                                    <>
+                                        <span className="text-green-600">Watched</span>
+                                        <button type="button" onClick={(e) => {e.stopPropagation(); markNotWatched(video.id)}} className="py-2 px-3 ml-3 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                            Mark Not Watched
+                                        </button>
+                                    </> :
+                                    <>
+                                        <span className="text-red-600">Not Watched</span>
+                                        <button type="button" onClick={(e) => {e.stopPropagation(); markWatched(video.id)}} className="py-2 px-3 ml-3 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                            Mark Watched
+                                        </button>
+                                    </>}
+                            </> :
+                            "Please sign in to track progress"}
                     </td>
                     <td className="px-6 py-4">
                         <Link className="font-medium text-blue-600 dark:text-blue-500 hover:underline" to={VIDEO_PATH(channelId, video.yt_video_id)}>

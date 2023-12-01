@@ -7,6 +7,8 @@ import { CHANNEL_PATH } from "../routes"
 export default function Home() {
     const [channels, setChannels] = useState([])
     const [page, setPage] = useState(1)
+
+    console.log("render?")
     
     useEffect(() => {
         const fetchChannels = async () => {
