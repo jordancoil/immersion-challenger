@@ -1,4 +1,4 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import { Navigate, RouterProvider, createBrowserRouter } from "react-router-dom"
 import { Layout } from "../App"
 import Login from "../components/Auth/Login"
 import Logout from "../components/Auth/Logout"
@@ -23,8 +23,6 @@ export const VIDEO_PATH = (channel_id, yt_video_id) => `/channels/${channel_id}/
 const Routes = () => {
     const [cookies, setCookie, removeCookie] = useCookies(["userId"]);
 
-    // removeCookie("userId")
-
     const publicRoutes = [
         {
             path: HOME_PATH, 
@@ -40,7 +38,7 @@ const Routes = () => {
         },
     ]
     
-    const nonAuthenticatedRoutes = [
+    const loggedOutRoutes = [
         {
             path: LOGIN_PATH, 
             element: <Login />
@@ -48,6 +46,17 @@ const Routes = () => {
         {
             path: REGISTER_PATH, 
             element: <Register />
+        },
+    ]
+
+    const loggedInRoutes = [
+        {
+            path: LOGIN_PATH, 
+            element: <Navigate to="/" />
+        },
+        {
+            path: REGISTER_PATH, 
+            element: <Navigate to="/" />
         },
     ]
 
@@ -74,7 +83,7 @@ const Routes = () => {
             element: <Layout />,
             children: [
                 ...publicRoutes,
-                ...(!cookies.userId ? nonAuthenticatedRoutes : []),
+                ...(!cookies.userId ? loggedOutRoutes : loggedInRoutes),
                 ...authenticatedRoutes
             ]
         }

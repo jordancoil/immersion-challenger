@@ -25,7 +25,10 @@ export default function Login() {
             password: password,
             stayLoggedIn: stayLoggedIn
         }).then(userId => {
-            setCookie("userId", userId, { path: "/" });
+            const tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
+            const expiry = stayLoggedIn ? tomorrow : null
+            const options = expiry ? { path: "/", expires: expiry } : { path: "/" }
+            setCookie("userId", userId, options);
 
             navigate(HOME_PATH, { replace: true })
         }).catch(error => {
