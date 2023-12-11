@@ -10,9 +10,17 @@ const login = async (req, res) => {
         authQueries.getUserByEmail(email)
         .then(result => {
             const user = result.rows[0]
+            const allowed = ["id", "email", "is_admin"]
+            const filtered_user = Object.keys(user)
+                .filter(key => allowed.includes(key))
+                .reduce((obj, key) => {
+                    obj[key] = user[key]
+                    return obj
+                }, {});
+
             if (bcrypt.compareSync(password, user.password_hash)) {
                 res.status(200).send({
-                    userId: user.id
+                    user: filtered_user
                 });
             } else {
                 res.status(200).send({

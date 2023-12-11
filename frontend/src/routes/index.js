@@ -8,6 +8,7 @@ import { ProtectedRoute } from "./ProtectedRoute"
 import VideoPlayer from "../pages/VideoPlayer"
 import Register from "../components/Auth/Register"
 import { useCookies } from "react-cookie"
+import { AdminRoute } from "./AdminRoute"
 
 export const HOME_PATH = "/"
 
@@ -17,11 +18,13 @@ export const FORGOT_PASSWORD_PATH = "/forgot-password"
 export const LOGOUT_PATH = "/logout"
 export const PROFILE_PATH = "/profile"
 
+export const ADMIN_PATH = "/admin"
+
 export const CHANNEL_PATH = (channel_id) => `/channels/${channel_id}`
 export const VIDEO_PATH = (channel_id, yt_video_id) => `/channels/${channel_id}/videos/${yt_video_id}`
 
 const Routes = () => {
-    const [cookies, setCookie, removeCookie] = useCookies(["userId"]);
+    const [cookies] = useCookies(["user"]);
 
     const publicRoutes = [
         {
@@ -36,6 +39,10 @@ const Routes = () => {
             path: "/channels/:id/videos/:yt_video_id",
             element: <VideoPlayer />
         },
+        {
+          path: LOGOUT_PATH,
+          element: <Logout />
+        }
     ]
     
     const loggedOutRoutes = [
@@ -60,18 +67,27 @@ const Routes = () => {
         },
     ]
 
+    const adminRoutes = [
+        {
+            path: "/",
+            element: <AdminRoute />,
+            children: [
+                {
+                    path: ADMIN_PATH,
+                    element: <div>Admin Page</div>
+                }
+            ]
+        }
+    ]
+
     const authenticatedRoutes = [
         {
             path: "/",
             element: <ProtectedRoute />,
             children: [
                 {
-                    path: PROFILE_PATH,
+                    path: ADMIN_PATH,
                     element: <div>Profile Page</div>
-                },
-                {
-                    path: LOGOUT_PATH,
-                    element: <Logout />
                 }
             ]
         }
@@ -83,8 +99,9 @@ const Routes = () => {
             element: <Layout />,
             children: [
                 ...publicRoutes,
-                ...(!cookies.userId ? loggedOutRoutes : loggedInRoutes),
-                ...authenticatedRoutes
+                ...(!cookies.user ? loggedOutRoutes : loggedInRoutes),
+                ...authenticatedRoutes,
+                ...adminRoutes
             ]
         }
     ])

@@ -1,17 +1,19 @@
 import { useEffect } from "react"
-import { Navigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { HOME_PATH } from "../../routes"
 import { useCookies } from "react-cookie"
 
 const Logout = () => {
-    const [cookies, setCookie, removeCookie] = useCookies(["userId"]);
+    const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+    const navigate = useNavigate()
 
     useEffect(() => {
-        removeCookie("userId")
+        removeCookie("user")
+        navigate(HOME_PATH)
     }, [])
 
     return (
-        <Navigate to={HOME_PATH} />
+      <div>Logging out.</div>
     )
 }
 

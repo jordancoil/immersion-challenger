@@ -6,7 +6,7 @@ import { useCookies } from "react-cookie"
 
 
 const VideoList = ({ channelId }) => {
-    const [cookies] = useCookies(["userId"]);
+    const [cookies] = useCookies(["user"]);
 
     const [videos, setVideos] = useState([])
     const [error, setError] = useState(null)
@@ -19,8 +19,8 @@ const VideoList = ({ channelId }) => {
         const fetchVideos = async () => {
             try {
                 let videos;
-                if (cookies.userId) {
-                    videos = await VideoService.getVideosWithWatchedStatus(channelId, cookies.userId)
+                if (cookies.user) {
+                    videos = await VideoService.getVideosWithWatchedStatus(channelId, cookies.user.id)
                 } else {
                     videos = await VideoService.getVideosForChannel(channelId)
                 }
@@ -35,12 +35,12 @@ const VideoList = ({ channelId }) => {
     }, [channelId])
 
     const markWatched = async (videoId) => {
-        await VideoService.markVideoWatched(videoId, cookies.userId)
+        await VideoService.markVideoWatched(videoId, cookies.user.id)
         toggleWatched(videoId)
     }
 
     const markNotWatched = async (videoId) => {
-        await VideoService.markVideoNotWatched(videoId, cookies.userId)
+        await VideoService.markVideoNotWatched(videoId, cookies.user.id)
         toggleWatched(videoId)
     }
 
@@ -76,7 +76,7 @@ const VideoList = ({ channelId }) => {
                         {video.video_index}
                     </td>
                     <td className="px-6 py-4">
-                        {cookies.userId ?
+                        {cookies.user ?
                             <>
                                 {video.watched_status === "Watched" ?
                                     <>

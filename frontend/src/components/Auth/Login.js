@@ -6,7 +6,7 @@ import { useCookies } from "react-cookie";
 
 
 export default function Login() {
-    const [cookies, setCookie] = useCookies(["userId"]);
+    const [cookies, setCookie] = useCookies(["user"]);
     const navigate = useNavigate()
 
     const { state } = useLocation()
@@ -24,11 +24,13 @@ export default function Login() {
             email: email,
             password: password,
             stayLoggedIn: stayLoggedIn
-        }).then(userId => {
+        }).then(user => {
             const tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000)
             const expiry = stayLoggedIn ? tomorrow : null
             const options = expiry ? { path: "/", expires: expiry } : { path: "/" }
-            setCookie("userId", userId, options);
+            setCookie("user", user, options);
+
+            console.log("user", user)
 
             navigate(HOME_PATH, { replace: true })
         }).catch(error => {

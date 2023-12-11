@@ -5,7 +5,7 @@ import { LOGIN_PATH, LOGOUT_PATH, PROFILE_PATH, REGISTER_PATH } from "../routes"
 const { Link } = require("react-router-dom")
 
 export default function Navbar() {
-    const [cookies] = useCookies(["userId"]);
+    const [cookies] = useCookies(["user"]);
 
     return (
         <header className="mb-8">
@@ -21,7 +21,7 @@ export default function Navbar() {
                         </ul>
                     </div>
                     <div>
-                        {cookies.userId ?
+                        {cookies.user ?
                             <ul className="list-reset flex justify-between flex-1 md:flex-none items-center">
                                 <Link to={LOGOUT_PATH}>
                                     <li className="flex-1 flex-none mr-3 inline-block py-2 px-4 text-white no-underline">

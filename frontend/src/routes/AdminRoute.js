@@ -1,12 +1,12 @@
 import { Navigate, Outlet } from "react-router-dom"
-import { LOGIN_PATH } from "."
+import { HOME_PATH } from "."
 import { useCookies } from "react-cookie";
 
-export const ProtectedRoute = () => {
+export const AdminRoute = () => {
     const [cookies] = useCookies(["user"]);
 
-    if (!cookies.user.id) {
-        return <Navigate to={LOGIN_PATH} />
+    if (!cookies.user.is_admin) {
+        return <Navigate to={HOME_PATH} />
     }
 
     return <Outlet />

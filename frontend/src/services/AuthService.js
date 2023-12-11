@@ -8,7 +8,7 @@ const AuthService = {
     async loginUser(credentials) {
         return await APIClient.post("/auth/login", credentials)
         .then(res => {
-            return res.data.userId
+            return res.data.user
         })
         .catch(err => {
             console.error(err)
