@@ -7,7 +7,8 @@ const getUserByEmail = async (email) => {
         values: [email]
     }
 
-    return pool.query(query).then(result => result);
+    result = await pool.query(query)
+    return result.rows[0]
 }
 
 const newUser = async (email, password_hash, timestamp) => {

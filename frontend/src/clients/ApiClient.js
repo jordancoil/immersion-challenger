@@ -1,6 +1,6 @@
 import axios from "axios"
 
-// const API_HOST = "127.0.0.1"
+// TODO: move to env
 const API_HOST = "localhost"
 const API_PORT = "4000"
 
