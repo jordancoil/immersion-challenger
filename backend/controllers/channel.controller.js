@@ -1,25 +1,19 @@
-const channelQueries = require("../db/queries/channelQueries")
+const channelService = require("../services/channel.service")
+const channelQueries = require("../db/queries/channel.queries")
 
 // TODO add input validation
 
 // get all channels
-const getChannels = async (req, res, next) => {
-    try {
-        let { p } = req.query
-        p = p || "1"
+const getChannels = async (req, res) => {
+  try {
+    const channels = await channelService.getChannelsPaginated(req.query)
 
-        channelQueries.getChannelsPaginatedWithVideoCount(p).then((result) => {
-            res.status(200).json(result.rows)
-        }).catch((error) => {
-            res.status(500).json({
-                message: error.message || "An error occurred while retrieving Channels."
-            })
-        })
-    } catch (error) {
-        res.status(500).json({
-            message: error.message || "An error occurred while retrieving Channels."
-        })
-    }
+    res.status(200).send({ channels: channels });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || "An error occurred while fetching channels."
+    })
+  }
 }
 
 // get a single channel

@@ -1,5 +1,3 @@
-const authQueries = require("../../db/queries/auth.queries")
-const authController = require("../../controllers/auth.controller")
 const userService = require("../../services/user.service")
 const { createServer } = require("../../server")
 const supertest = require("supertest")
@@ -28,21 +26,16 @@ const registrationBody = {
   password: "Password123"
 }
 
-describe("auth.controller", function () {
-  const users = []
-  const specificUser = {}
-
-  describe("login()", function () {
-
-    describe("given a valid email and password", function () {
-
+describe("auth.controller", () => {
+  describe("login()", () => {
+    describe("given a valid email and password", () => {
       it('login user', async () => {
         const mockUserServiceLogin = jest.spyOn(userService, "loginUser")
           .mockReturnValue([mockLoginUser, null])
 
         const { statusCode, body } = await supertest(app)
           .post("/api/auth/login")
-          .send(loginBody);
+          .send(loginBody)
 
         expect(statusCode).toBe(200);
         expect(body.user).toEqual(mockLoginUser);
@@ -52,10 +45,8 @@ describe("auth.controller", function () {
     });
   });
 
-  describe("register()", function () {
-
-    describe("given a valid email and password", function () {
-
+  describe("register()", () => {
+    describe("given a valid email and password", () => {
       it('create new user', async () => {
         const mockUserServiceRegister = jest.spyOn(userService, "registerNewUser")
           .mockReturnValue([mockRegisterUser, null])

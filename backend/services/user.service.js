@@ -35,8 +35,7 @@ async function registerNewUser({
   const password_hash = bcrypt.hashSync(password, 10);
   const timestamp = Date.now();
 
-  const result = await authQueries.newUser(email, password_hash, timestamp)
-  const user = result.rows[0]
+  const user = await authQueries.newUser(email, password_hash, timestamp)
 
   return [filteredUser(user), null]
 }

@@ -38,7 +38,8 @@ const getChannelsPaginatedWithVideoCount = async (page) => {
         values: [offset, ITEMS_PER_PAGE]
     }
 
-    return pool.query(query).then(result => result);
+    const result = await pool.query(query)
+    return result.rows
 }
 
 const getChannelById = async (id) => {

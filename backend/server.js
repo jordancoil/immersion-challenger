@@ -1,8 +1,8 @@
 const express = require("express")
 const cors = require("cors")
-const channelRoutes = require("./routes/channelRoutes")
+const channelRoutes = require("./routes/channel.routes")
 const videoRoutes = require("./routes/videoRoutes")
-const authRoutes = require("./routes/authRoutes")
+const authRoutes = require("./routes/auth.routes")
 
 function createServer() {
   const app = express()

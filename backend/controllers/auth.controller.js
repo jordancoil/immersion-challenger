@@ -10,7 +10,6 @@ const login = async (req, res) => {
 
     res.status(200).send({ user: user });
   } catch (error) {
-    console.log(error)
     res.status(500).json({
       message: error.message || "An error occurred while logging in."
     })
