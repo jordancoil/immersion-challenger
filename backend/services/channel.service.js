@@ -2,19 +2,23 @@ const channelQueries = require("../db/queries/channel.queries")
 
 async function getChannelsPaginated({ p }) {
   const page = p || "1"
-
-  const channels = await channelQueries.getChannelsPaginatedWithVideoCount(page)
-
-  return channels
+  return await channelQueries.getChannelsPaginatedWithVideoCount(page)
 }
 
 async function getChannel({ id }) {
-  const channel = await channelQueries.getChannelById(id)
+  return await channelQueries.getChannelById(id)
+}
 
-  return channel
+async function getVideosForChannel({ id, userId }) {
+  if (userId) {
+    return await channelQueries.getVideosWithWatchedStatus(id, userId)
+  } else {
+    return await channelQueries.getVideosForChannelById(id)
+  }
 }
 
 module.exports = {
   getChannelsPaginated,
-  getChannel
+  getChannel,
+  getVideosForChannel
 }

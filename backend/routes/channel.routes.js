@@ -10,10 +10,10 @@ router.get("/", channelController.getChannels)
 router.get("/:id", channelController.getChannel)
 
 // GET all videos for a channel
-router.get("/:id/videos", channelController.getVideosForChannel)
+router.get("/:id/videos/:userId?", channelController.getVideosForChannel)
 
 // GET all watched videos for a channel and user
-router.get("/:id/videos/watched/:userId", channelController.getVideosWithWatchedStatus)
+router.get("/:id/videos/watched/:userId", channelController.getVideosForChannel)
 
 // POST a new channel
 router.post("/", channelController.createChannel)

@@ -9,21 +9,6 @@ const getChannels = async () => {
     return pool.query(query).then(result => result);
 }
 
-const getChannelsPaginated = async (page) => {
-    const ITEMS_PER_PAGE = 12
-    const offset = (page - 1) * ITEMS_PER_PAGE
-    const query = {
-        name: "get-all-channels-paginated",
-        text: `SELECT *, count(*) OVER() AS total_rows
-            FROM channels
-            OFFSET $1::int
-            LIMIT $2::int`,
-        values: [offset, ITEMS_PER_PAGE]
-    }
-
-    return pool.query(query).then(result => result);
-}
-
 const getChannelsPaginatedWithVideoCount = async (page) => {
     const ITEMS_PER_PAGE = 12
     const offset = (page - 1) * ITEMS_PER_PAGE
@@ -60,7 +45,8 @@ const getVideosForChannelById = async (id) => {
         values: [id]
     }
 
-    return pool.query(query).then(result => result);
+    const result = await pool.query(query)
+    return result.rows
 }
 
 const getVideosWithWatchedStatus = async (id, userId) => {
@@ -74,7 +60,8 @@ const getVideosWithWatchedStatus = async (id, userId) => {
         values: [id, userId]
     }
 
-    return pool.query(query).then(result => result);
+    const result = await pool.query(query)
+    return result.rows
 }
 
 const createChannel = async (yt_channel_id, title, thumbnail) => {
@@ -116,7 +103,6 @@ const updateChannel = async (id, yt_channel_id, title, thumbnail) => {
 
 module.exports = {
     getChannels,
-    getChannelsPaginated,
     getChannelsPaginatedWithVideoCount,
     getChannelById,
     getVideosWithWatchedStatus,

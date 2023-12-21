@@ -11,7 +11,6 @@ export default function ChannelPage() {
   useEffect(() => {
     APIClient.get(`/channels/${id}`)
       .then(res => {
-        console.log(res.data)
         setChannel(res.data.channel)
       })
       .catch(err => {
