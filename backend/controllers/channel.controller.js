@@ -18,21 +18,15 @@ const getChannels = async (req, res) => {
 
 // get a single channel
 const getChannel = async (req, res) => {
-    try {
-        const { id } = req.params
+  try {
+    const channel = await channelService.getChannel(req.params)
 
-        channelQueries.getChannelById(id).then((result) => {
-            res.status(200).json(result.rows[0])
-        }).catch((error) => {
-            res.status(500).json({
-                message: error.message || "An error occurred while retrieving the Channel."
-            })
-        })
-    } catch (error) {
-        res.status(500).json({
-            message: error.message || "An error occurred while retrieving the Channel."
-        })
-    }
+    res.status(200).send({ channel: channel})
+  } catch (error) {
+    res.status(500).json({
+        message: error.message || "An error occurred while retrieving the Channel."
+    })
+  }
 }
 
 const getVideosForChannel = (req, res) => {

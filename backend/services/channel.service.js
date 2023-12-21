@@ -8,6 +8,13 @@ async function getChannelsPaginated({ p }) {
   return channels
 }
 
+async function getChannel({ id }) {
+  const channel = await channelQueries.getChannelById(id)
+
+  return channel
+}
+
 module.exports = {
-  getChannelsPaginated
+  getChannelsPaginated,
+  getChannel
 }

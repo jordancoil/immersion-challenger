@@ -1,26 +1,33 @@
+import { CookiesProvider } from "react-cookie";
 import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Routes from "./routes";
-import { CookiesProvider, useCookies } from "react-cookie";
+import { ErrorContextProvider, useErrorContext } from "./providers/ErrorContextProvider";
 
 
 const App = () => {
-    return (
-        <CookiesProvider>
-            <Routes />
-        </CookiesProvider>
-    )
+  return (
+    <CookiesProvider>
+      <ErrorContextProvider>
+        <Routes />
+      </ErrorContextProvider>
+    </CookiesProvider>
+  )
 }
 
 export const Layout = () => {
-    return (
-        <div className="bg-gray-50 dark:bg-gray-900 text-white font-sans leading-normal tracking-normal min-h-screen">
-            <Navbar />
-            <main className="container mx-auto flex flex-auto flex-col grow items-center">
-                <Outlet />
-            </main>
-        </div>
-    )
+  const { error } = useErrorContext()
+
+  return (
+    <div className="bg-gray-50 dark:bg-gray-900 text-white font-sans leading-normal tracking-normal min-h-screen">
+      <Navbar />
+      <main className="container mx-auto flex flex-auto flex-col grow items-center">
+        {error ? 
+          error :
+          <Outlet />}
+      </main>
+    </div>
+  )
 }
 
 export default App

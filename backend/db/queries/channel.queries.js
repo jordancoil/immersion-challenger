@@ -49,7 +49,8 @@ const getChannelById = async (id) => {
         values: [id]
     }
 
-    return pool.query(query).then(result => result);
+    const result = await pool.query(query)
+    return result.rows[0]
 }
 
 const getVideosForChannelById = async (id) => {
