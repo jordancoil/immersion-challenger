@@ -43,35 +43,14 @@ const getVideosForChannel = async (req, res) => {
 
 // create a new channel
 const createChannel = async (req, res) => {
-    try {
-        const { yt_channel_id, title, thumbnail } = req.body
-
-        if (!yt_channel_id) {
-            res.status(400).send({
-                message: "Channel ID cannot be empty!"
-            });
-            return;
-        }
-
-        if (!title) {
-            res.status(400).send({
-                message: "Title cannot be empty!"
-            });
-            return;
-        }
-
-        channelQueries.createChannel(yt_channel_id, title, thumbnail).then((result) => {
-            res.status(200).json(result.rows[0])
-        }).catch((error) => {
-            res.status(500).json({
-                message: error.message || "An error occurred while creating the Channel."
-            })
-        })
-    } catch (error) {
-        res.status(500).json({
-            message: error.message || "An error occurred while creating the Channel."
-        })
-    }
+  try {
+    const channel = await channelService.createNewChannel(req.query)
+    res.status(200).send({ channel: channel })
+  } catch (error) {
+    res.status(500).json({
+      message: error.message || "An error occurred while creating the channel."
+    })
+  }
 }
 
 // delete a new channel

@@ -16,7 +16,7 @@ router.get("/:id/videos/:userId?", channelController.getVideosForChannel)
 router.get("/:id/videos/watched/:userId", channelController.getVideosForChannel)
 
 // POST a new channel
-router.post("/", channelController.createChannel)
+router.post("/new", channelController.createChannel)
 
 // DELETE a new channel
 router.delete("/:id", channelController.deleteChannel)

@@ -73,7 +73,8 @@ const createChannel = async (yt_channel_id, title, thumbnail) => {
         values: [yt_channel_id, title, thumbnail]
     }
 
-    return pool.query(query).then(result => result);
+    const result = await pool.query(query)
+    return result.rows[0]
 }
 
 const deleteChannel = async (id) => {
