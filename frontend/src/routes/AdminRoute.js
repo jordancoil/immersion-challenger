@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 export const AdminRoute = () => {
     const [cookies] = useCookies(["user"]);
 
-    if (!cookies.user.is_admin) {
+    if (!cookies.user || !cookies.user.is_admin) {
         return <Navigate to={HOME_PATH} />
     }
 

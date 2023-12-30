@@ -11,6 +11,7 @@ import VideoPlayer from "../pages/VideoPlayer"
 import { AdminRoute } from "./AdminRoute"
 import { ProtectedRoute } from "./ProtectedRoute"
 import Admin from "../pages/Admin"
+import AddChannel from "../pages/AddChannel"
 
 export const HOME_PATH = "/"
 
@@ -21,6 +22,7 @@ export const LOGOUT_PATH = "/logout"
 export const PROFILE_PATH = "/profile"
 
 export const ADMIN_PATH = "/admin"
+export const ADD_CHANNEL_PATH = "/add-channel"
 
 export const CHANNEL_PATH = (channel_id) => `/channels/${channel_id}`
 export const VIDEO_PATH = (channel_id, yt_video_id) => `/channels/${channel_id}/videos/${yt_video_id}`
@@ -80,7 +82,11 @@ const Routes = () => {
       children: [
         {
           path: ADMIN_PATH,
-          element: <div>Admin Page</div>
+          element: <Admin />
+        }, 
+        {
+          path: ADD_CHANNEL_PATH,
+          element: <AddChannel />
         }
       ]
     }
@@ -92,8 +98,8 @@ const Routes = () => {
       element: <ProtectedRoute />,
       children: [
         {
-          path: ADMIN_PATH,
-          element: <Admin />
+          path: PROFILE_PATH,
+          element: <div>Profile Page</div>
         }
       ]
     }

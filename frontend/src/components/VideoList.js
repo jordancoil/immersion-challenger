@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import VideoService from "../services/VideoService"
 import { Link, useNavigate } from "react-router-dom"
 import { VIDEO_PATH } from "../routes"
 import { useCookies } from "react-cookie"

@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 export const ProtectedRoute = () => {
     const [cookies] = useCookies(["user"]);
 
-    if (!cookies.user.id) {
+    if (!cookies.user || !cookies.user.id) {
         return <Navigate to={LOGIN_PATH} />
     }
 
