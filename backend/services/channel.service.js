@@ -28,7 +28,7 @@ async function createNewChannel({ channelQuery }) {
 
   // If doesn't exist in database, check youtube API
   const YOUTUBE_SEARCH_API = "https://youtube.googleapis.com/youtube/v3/search"
-  let searchURL = `${YOUTUBE_SEARCH_API}?part=snippet&part=id`
+  let searchURL = `${YOUTUBE_SEARCH_API}?part=snippet`
   searchURL += "&type=channel"
   searchURL += `&q=${channelQuery}`
   searchURL += `&key=${process.env.YOUTUBE_API_KEY}`
@@ -44,7 +44,7 @@ async function createNewChannel({ channelQuery }) {
   const channelResult = YTResult.data.items[0]
 
   return await channelQueries.createChannel(
-    channelResult.snippet.channel_id,
+    channelResult.snippet.channelId,
     channelResult.snippet.channelTitle,
     channelResult.snippet.thumbnails.high.url
   )

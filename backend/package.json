@@ -19,7 +19,8 @@
     "express": "^4.18.2",
     "lodash": "^4.17.21",
     "mongoose": "^8.0.2",
-    "pg": "^8.11.3"
+    "pg": "^8.11.3",
+    "pg-boss": "^9.0.3"
   },
   "devDependencies": {
     "jest": "^29.7.0",

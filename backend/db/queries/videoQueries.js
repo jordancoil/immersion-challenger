@@ -24,7 +24,21 @@ const markVideoNotWatched = async (videoId, userId) => {
     return pool.query(query).then(result => result);
 }
 
+const createVideo = async (channelId, ytVideoId, title, videoIndex) => {
+  const query = {
+      name: "create-video",
+      text: `INSERT INTO videos (channel_id, yt_video_id, title, video_index)
+          VALUES ($1::int, $2::text, $3::text, $4::int)
+          RETURNING *;`,
+      values: [channelId, ytVideoId, title, videoIndex]
+  }
+
+  const result = await pool.query(query)
+  return result.rows[0]
+}
+
 module.exports = {
     markVideoWatched,
-    markVideoNotWatched
+    markVideoNotWatched,
+    createVideo
 }
