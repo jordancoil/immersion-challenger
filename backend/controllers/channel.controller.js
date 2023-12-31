@@ -1,6 +1,6 @@
 const channelService = require("../services/channel.service")
 const channelQueries = require("../db/queries/channel.queries");
-const { populateChannelVideos, fetchVideosForChannelAndSave } = require("../middleware/tasks/populateChannelVideos");
+const { populateChannelVideos } = require("../middleware/tasks/populateChannelVideos");
 
 // TODO add input validation
 
@@ -46,8 +46,7 @@ const getVideosForChannel = async (req, res) => {
 const createChannel = async (req, res) => {
   try {
     const channel = await channelService.createNewChannel(req.query)
-    // await populateChannelVideos(channel.id)
-    await fetchVideosForChannelAndSave({ channelId: channel.id, ytChannelId: channel.yt_channel_id })
+    await populateChannelVideos(channel.id, channel.yt_channel_id)
     res.status(200).send({ channel: channel })
   } catch (error) {
     res.status(500).json({
